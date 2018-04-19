@@ -3,10 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>foxtest-zero</title>
+    <title>Тест жаттауға арналған сайт</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117934377-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-117934377-1');
+    </script>
   </head>
   <body>
     <div id="app"></div>
+    <!--LiveInternet counter-->
+    <script type="text/javascript">
+      document.write("<a href='//www.liveinternet.ru/click' "+
+        "target=_blank><img src='//counter.yadro.ru/hit?t14.5;r"+
+        escape(document.referrer)+((typeof(screen)=="undefined")?"":
+          ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+          screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+        ";h"+escape(document.title.substring(0,150))+";"+Math.random()+
+        "' alt='' title='LiveInternet: number of pageviews for 24 hours,"+
+        " of visitors for 24 hours and for today is shown' "+
+        "border='0' width='88' height='31'><\/a>")
+    </script>
+    <!--/LiveInternet-->
     <script src="dist/build.js"></script>
   </body>
 </html>

@@ -8,7 +8,7 @@
 
       <div v-for="answer in quiz.answers">
         <span v-bind:class="[answer.value === 10 ? 'text-success' : 'text-danger', 'font-weight-bold']">{{answer.spoiler}}</span>
-        <div class="form-check-inline">
+        <div v-on:dblclick="checkAnswer" class="form-check-inline">
           <input v-model="answerCode" class="form-check-input" type="radio" v-bind:value="answer.value" v-bind:id="'answer'+answer.value">
           <label v-bind:for="'answer'+answer.value" v-html="answer.text" class="form-check-label"></label>
         </div>
@@ -60,14 +60,14 @@
         let answers = [];
         quiz.answers.forEach((answer, index) => {
           answers.push({
-            text: answer, // .slice(answer.indexOf(')')+1),
+            text: answer.slice(answer.indexOf(')')+1),
             value: index + 10,
             spoiler: ''
           })
         });
         quiz.fakeanswers.forEach((answer, index) => {
           answers.push({
-            text: answer, // .slice(answer.indexOf(')')+1),
+            text: answer.slice(answer.indexOf(')')+1),
             value: index + 20,
             spoiler: ''
           })

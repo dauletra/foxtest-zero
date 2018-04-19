@@ -4,7 +4,7 @@
       <div class="border" style="max-width: 500px">
         <table class="table table-sm">
           <tr>
-            <td>Тесттің аты</td>
+            <td>Тесттің коды</td>
             <td>{{quizBank.name}}</td>
           </tr>
           <tr>
@@ -14,10 +14,6 @@
           <tr>
             <td>Табылмаған сұрақтар номерлері</td>
             <td>{{missingQuestions}}</td>
-          </tr>
-          <tr>
-            <td>Тест түрі</td>
-            <td>(5-1) Бес таңдау, бір дұрыс жауап</td>
           </tr>
           <tr>
             <td>Жасалған күні</td>
