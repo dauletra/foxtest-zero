@@ -42,6 +42,13 @@
             <span class="small text-muted">{{this.inputNumbers}}</span>
           </div>
         </div>
+        <div v-if="mode==='exam'" class="text-muted">
+          <h6>Ереже</h6>
+          <ul>
+            <li>Сұраққа қате жауап берсең, сол сұрақ қайтадан келеді</li>
+            <li>Жауаптың үстінен екі рет бассаң жауап тексеріледі</li>
+          </ul>
+        </div>
         <div class="form-group text-center">
           <button v-if="mode==='exam'" v-on:click="start" type="submit" class="btn ">Бастау</button>
         </div>

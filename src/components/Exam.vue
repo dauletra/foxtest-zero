@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div v-hammer:swipe.left="nextQuestion" class="">
     <div class="" style="overflow:auto; white-space: nowrap;">
       Қалған сұрақтар саны: {{examNumbers.length}} ({{examNumbers.join(', ')}})
     </div>
