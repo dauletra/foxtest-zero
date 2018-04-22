@@ -4,16 +4,12 @@
     <div class="border mb-4 p-1">
       Айгерімге тест жаттауға көмектесу үшін жасалған сайт ;)
     </div>
-    <div class="border mb-4 p-1 text-muted small">
-      <div>Инструкция</div>
-      <div>Тесттеріңді маған жібер. Әр тестке код беремін. Сол кодтар арқылы тесттеріңді осы сайттан ашып дайындала аласың. Телефонмен ашсаң да болады ;)</div>
-    </div>
 
     <div v-if="Object.keys(quizBank).length === 0" class="mb-4 p-2 border rounded">
       <form v-on:submit.prevent>
 
         <div class="">
-          Код жазу арқылы ашу (мысалы <code>istoria</code> деп жазып көр)
+          Код (мысалы <code v-on:click="autoComplete('istoria')">istoria</code> немесе <code v-on:click="autoComplete('termo')">termo</code> деп жазып көр)
           <div class="input-group" style="max-width: 300px">
             <input v-model.trim="code" type="text" class="form-control" placeholder="Код">
             <div class="input-group-append">
@@ -22,24 +18,28 @@
           </div>
           <span class="text-warning small">{{codeWarning}}</span>
           <span class="text-success small">{{codeSuccess}}</span>
+          <div v-if="lastCodes.length > 0" class="">
+            <span class="text-muted">Соңғы ашылғандар</span>
+            <ul>
+              <li v-for="code in lastCodes"><code v-on:click="autoComplete(code)">{{code}}</code></li>
+            </ul>
+          </div>
         </div>
 
-        <div class="hr-sect">немесе</div>
+        <div class="hr-sect">Тек админ үшін</div>
 
         <div class="">
-          Компьютер или телефон памятінен ашу
           <div class="">
             <input v-on:change="onChangeHandler" type="file" class="form-control-file from-control" id="file">
           </div>
           <span class="text-warning small">{{fileWarning}}</span>
           <span class="text-success small">{{fileSuccess}}</span>
         </div>
-
       </form>
     </div>
 
     <div v-else class="border">
-      <button v-on:click="exitQuiz" class="btn btn-sm btn-dark">Тестті өшіру</button>
+      <button v-on:click="exitQuiz" class="btn btn-sm btn-dark">Тестті жабу</button>
       <Trainer v-if="Object.keys(quizBank).length > 0" v-bind:quizBank="quizBank" />
     </div>
 
@@ -68,7 +68,26 @@
     components: {
       Trainer
     },
+    computed: {
+      lastCodes: {
+        get: function() {
+          let rawCodes = localStorage.getItem('codes');
+          return JSON.parse(rawCodes) || [];
+        },
+        set: function(newValue) {
+          let codes = JSON.parse(localStorage.getItem('codes')) || [];
+          if (codes.includes(newValue))
+            return;
+          if (codes.length > 4) codes.shift();
+          codes.push(newValue);
+          localStorage.setItem('codes', JSON.stringify(codes));
+        }
+      }
+    },
     methods: {
+      autoComplete(code) {
+        this.code = code;
+      },
       exitQuiz() {
         this.quizBank = {};
       },
@@ -76,6 +95,7 @@
         this.code = this.code.toLowerCase();
         if (!this.code.length > 0)
           return;
+        this.lastCodes = this.code;
         let url = `https://dauletra.github.io/foxtestconsole/examples/${this.code}.json`;
         console.log(`Generated url: ${url}`);
         // todo adblock блокирует ссылку

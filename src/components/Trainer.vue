@@ -22,7 +22,7 @@
         </table>
       </div>
 
-      <div class="border my-1">
+      <div class="border my-1 p-sm-2">
         <div class="form-group">
           <div class="form-check-inline">
             <input v-model="mode" class="form-check-input" type="radio" id="showMode" value="show">
@@ -47,10 +47,11 @@
         </div>
       </div>
 
-      <div>
-        <div v-if="mode==='exam'" class="border">
+      <div class="border p-sm-2">
+        <div v-if="mode==='exam'" class="">
           <Exam v-if="examNumbers.length > 0" v-bind:quizBank="quizBank" v-bind:examNumbers="examNumbers" />
         </div>
+
         <div v-else-if="mode==='show'" class="border">
           <div v-for="quiz in currentQuizes" class="border">
             <div v-html="quiz.question"></div>

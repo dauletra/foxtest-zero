@@ -1,9 +1,9 @@
 <template>
-  <div class="border">
-    <div class="border" style="overflow:auto; white-space: nowrap;">
+  <div class="">
+    <div class="" style="overflow:auto; white-space: nowrap;">
       Қалған сұрақтар саны: {{examNumbers.length}} ({{examNumbers.join(', ')}})
     </div>
-    <div v-if="Object.keys(quiz).length > 0" class="border">
+    <div v-if="Object.keys(quiz).length > 0" class="">
       <div v-html="quiz.question"></div>
 
       <div v-for="answer in quiz.answers">
@@ -18,7 +18,7 @@
     <div v-else>
       Нажмите кнопку следующий или начните сначало
     </div>
-    <div class="border text-right">
+    <div class="text-right">
       <button v-on:click="checkAnswer" v-bind:disabled="state.checked || !answerCode" type="button" class="btn btn-secondary">Тексеру</button>
       <button v-on:click="nextQuestion" type="button" class="btn btn-success">Келесі</button>
     </div>
@@ -79,24 +79,20 @@
         this.quiz.answers = shuffleArray(answers);
       },
       checkAnswer() {
+        if (this.state.checked) return;
         this.state.checked = true;
         if (this.answerCode === 10) {
           this.examNumbers.splice(this.examNumbers.indexOf(this.currentNumber), 1);
-          this.quiz.answers.map(answer => {
-            if (answer.value === 10)
-              answer.spoiler = 'Дұрыс';
-            return answer;
-          })
         } else {
           this.examNumbers.push(this.currentNumber);
-          this.quiz.answers.map(answer => {
-            if (answer.value === this.answerCode)
-              answer.spoiler = 'Қате';
-            if (answer.value === 10)
-              answer.spoiler = 'Дұрыс';
-            return answer;
-          })
         }
+        this.quiz.answers.map(answer => {
+          if (answer.value === this.answerCode)
+            answer.spoiler = 'Қате';
+          if (answer.value === 10)
+            answer.spoiler = 'Дұрыс';
+          return answer;
+        })
       }
     }
   }
