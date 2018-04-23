@@ -96,7 +96,7 @@
         if (!this.code.length > 0)
           return;
         this.lastCodes = this.code;
-        let url = `https://dauletra.github.io/foxtestconsole/examples/${this.code}.json`;
+        let url = `http://res.cloudinary.com/burnoe/raw/upload/tests/${this.code}.json`;
         console.log(`Generated url: ${url}`);
         // todo adblock блокирует ссылку
         this.downloading = true;
