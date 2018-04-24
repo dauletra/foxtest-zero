@@ -1,6 +1,6 @@
 <template>
-  <div class="border">
-    <div v-for="quiz in currentQuizes" class="border">
+  <div>
+    <div v-for="quiz in currentQuizes" class="my-1">
       <div v-html="quiz.question"></div>
       <div v-html="quiz.answers[0]" class="border border-success"></div>
       <div v-html="quiz.fakeanswers[0]"></div>

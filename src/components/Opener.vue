@@ -1,28 +1,27 @@
 <template>
-    <div class="border border-primary">
+    <div>
+      <table class="table table-sm">
+        <tr>
+          <td>Тесттің коды</td>
+          <td>{{quizBank.name}}</td>
+        </tr>
+        <tr>
+          <td>Сұрақтар саны</td>
+          <td>{{quizBank.quizes.length}}</td>
+        </tr>
+        <tr>
+          <td>Табылмаған сұрақтар номерлері</td>
+          <td>{{missingQuestions}}</td>
+        </tr>
+        <tr>
+          <td>Жасалған күні</td>
+          <td>{{formatDate(quizBank.created_time)}}</td>
+        </tr>
+      </table>
 
-      <div class="border" style="max-width: 500px">
-        <table class="table table-sm">
-          <tr>
-            <td>Тесттің коды</td>
-            <td>{{quizBank.name}}</td>
-          </tr>
-          <tr>
-            <td>Сұрақтар саны</td>
-            <td>{{quizBank.quizes.length}}</td>
-          </tr>
-          <tr>
-            <td>Табылмаған сұрақтар номерлері</td>
-            <td>{{missingQuestions}}</td>
-          </tr>
-          <tr>
-            <td>Жасалған күні</td>
-            <td>{{formatDate(quizBank.created_time)}}</td>
-          </tr>
-        </table>
-      </div>
+      <div class="hr-sect">Операциялар</div>
 
-      <form v-on:submit.prevent class="border my-1 p-sm-2">
+      <form v-on:submit.prevent class="m-1">
         <div class="form-group">
           <div class="form-check-inline">
             <input v-model="mode" class="form-check-input" type="radio" id="showMode" value="show">
@@ -34,7 +33,7 @@
           </div>
         </div>
         <div class="form-group row no-gutters">
-          <label for="numbers" class="col-4 col-form-label">Сұрақтар номерлері
+          <label for="numbers" class="col-6 col-sm-4 col-form-label">Сұрақтар номерлері
             <span style="white-space:nowrap">({{Math.min(...quizNumbers) + "-" + Math.max(...quizNumbers)}})</span>
           </label>
           <div class="col">
@@ -55,8 +54,9 @@
         </div>
       </form>
 
-      <div class="border p-sm-2">
+      <div class="p-sm-2">
         <div v-if="mode==='exam'">
+          <div class="hr-sect">Тест</div>
           <Trainer v-if="examNumbers.length > 0" v-bind:quizBank="quizBank" v-bind:examNumbers="examNumbers" />
         </div>
 

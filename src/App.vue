@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid px-0 px-sm-2">
+  <div class="container-fluid px-0 px-sm-2" style="margin: auto; max-width: 750px">
 
     <div class="border mb-4 p-1">
       Айгерімге тест жаттауға көмектесу үшін жасалған сайт ;)
@@ -39,8 +39,10 @@
       </form>
     </div>
 
-    <div v-else class="border">
-      <button v-on:click="quizBank = {}" class="btn btn-sm btn-">Тестті жабу</button>
+    <div v-else class="border rounded">
+      <div class="text-right">
+        <button v-on:click="quizBank = {}" class="btn btn-link">жабу</button>
+      </div>
       <Opener v-if="Object.keys(quizBank).length > 0" v-bind:quizBank="quizBank" />
     </div>
 
