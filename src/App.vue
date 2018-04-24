@@ -7,9 +7,10 @@
 
     <div v-if="Object.keys(quizBank).length === 0" class="mb-4 p-2 border rounded">
       <form v-on:submit.prevent>
-
         <div class="">
-          Код (мысалы <code v-on:click="autoComplete('istoria')">istoria</code> немесе <code v-on:click="autoComplete('termo')">termo</code> деп жазып көр)
+          Код (мысалы <code v-on:click="autoComplete('istoria')">istoria</code> немесе
+          <code v-on:click="autoComplete('termo')">termo</code> деп жазып көруге болады)
+
           <div class="input-group" style="max-width: 300px">
             <input v-model.trim="code" type="text" class="form-control" placeholder="Код">
             <div class="input-group-append">
@@ -19,7 +20,7 @@
           <span class="text-warning small">{{codeWarning}}</span>
           <span class="text-success small">{{codeSuccess}}</span>
           <div v-if="lastCodes.length > 0" class="">
-            <span class="text-muted">Соңғы ашылғандар</span>
+            <span class="text-muted">Соңғы кодтар</span>
             <ul>
               <li v-for="code in lastCodes"><code v-on:click="autoComplete(code)">{{code}}</code></li>
             </ul>
@@ -39,8 +40,8 @@
     </div>
 
     <div v-else class="border">
-      <button v-on:click="exitQuiz" class="btn btn-sm btn-dark">Тестті жабу</button>
-      <Trainer v-if="Object.keys(quizBank).length > 0" v-bind:quizBank="quizBank" />
+      <button v-on:click="quizBank = {}" class="btn btn-sm btn-">Тестті жабу</button>
+      <Opener v-if="Object.keys(quizBank).length > 0" v-bind:quizBank="quizBank" />
     </div>
 
   </div>
@@ -48,7 +49,7 @@
 
 <script>
   import axios from 'axios'
-  import Trainer from './components/Trainer'
+  import Opener from './components/Opener'
 
   export default {
     name: 'app',
@@ -66,7 +67,7 @@
       }
     },
     components: {
-      Trainer
+      Opener
     },
     computed: {
       lastCodes: {
@@ -87,9 +88,6 @@
     methods: {
       autoComplete(code) {
         this.code = code;
-      },
-      exitQuiz() {
-        this.quizBank = {};
       },
       download() {
         this.code = this.code.toLowerCase();

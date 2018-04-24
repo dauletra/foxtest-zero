@@ -1,163 +1,129 @@
 <template>
-    <div class="border border-primary">
-
-      <div class="border" style="max-width: 500px">
-        <table class="table table-sm">
-          <tr>
-            <td>Тесттің коды</td>
-            <td>{{quizBank.name}}</td>
-          </tr>
-          <tr>
-            <td>Сұрақтар саны</td>
-            <td>{{quizBank.quizes.length}}</td>
-          </tr>
-          <tr>
-            <td>Табылмаған сұрақтар номерлері</td>
-            <td>{{missingQuestions}}</td>
-          </tr>
-          <tr>
-            <td>Жасалған күні</td>
-            <td>{{formatDate(quizBank.created_time)}}</td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="border my-1 p-sm-2">
-        <div class="form-group">
-          <div class="form-check-inline">
-            <input v-model="mode" class="form-check-input" type="radio" id="showMode" value="show">
-            <label for="showMode" class="form-check-label">Көрсету</label>
-          </div>
-          <div class="form-check-inline">
-            <input v-model="mode" class="form-check-input" type="radio" id="examMode" value="exam">
-            <label for="examMode" class="form-check-label">Тестілеу</label>
-          </div>
-        </div>
-        <div class="form-group row no-gutters">
-          <label for="numbers" class="col-4 col-form-label">Сұрақтар номерлері
-            <span style="white-space:nowrap">({{Math.min(...quizNumbers) + "-" + Math.max(...quizNumbers)}})</span>
-          </label>
-          <div class="col">
-            <input v-model="rawNumbers" type="text" class="form-control" id="numbers" placeholder="1-10 23 29 56-70">
-            <span class="small text-muted">{{this.inputNumbers}}</span>
-          </div>
-        </div>
-        <div v-if="mode==='exam'" class="text-muted">
-          <h6>Ереже</h6>
-          <ul>
-            <li>Сұраққа қате жауап берілсе, сол сұрақ қайталанып келеді</li>
-            <li>Жауаптың үстінен екі рет басу жауапты тексереді</li>
-            <li>Сенсорлы экранды солға қарай жылжыту келесі сұраққа ауыстырады</li>
-          </ul>
-        </div>
-        <div class="form-group text-center">
-          <button v-if="mode==='exam'" v-on:click="start" type="submit" class="btn ">Бастау</button>
-        </div>
-      </div>
-
-      <div class="border p-sm-2">
-        <div v-if="mode==='exam'" class="">
-          <Exam v-if="examNumbers.length > 0" v-bind:quizBank="quizBank" v-bind:examNumbers="examNumbers" />
-        </div>
-
-        <div v-else-if="mode==='show'" class="border">
-          <div v-for="quiz in currentQuizes" class="border">
-            <div v-html="quiz.question"></div>
-            <div v-html="quiz.answers[0]" class="border border-success"></div>
-            <div v-html="quiz.fakeanswers[0]"></div>
-            <div v-html="quiz.fakeanswers[1]"></div>
-            <div v-html="quiz.fakeanswers[2]"></div>
-            <div v-html="quiz.fakeanswers[3]"></div>
-            <div v-html="quiz.fakeanswers[4]"></div>
-          </div>
-        </div>
-      </div>
-
+  <div class="">
+    <div class="" style="overflow:hidden; white-space: nowrap;">
+      Қалған сұрақтар саны: {{localExamNumbers.length}}
+      <transition-group name="list" tag="p">
+        <span v-for="item in localExamNumbers" v-bind:key="item[1]" class="list-item">
+          {{ item[0] }}
+        </span>
+      </transition-group>
     </div>
+    <div v-if="localExamNumbers.length === 0" class="alert alert-success">
+      Сұрақтар бітті
+    </div>
+    <div v-hammer:swipe.left="nextQuestion">
+      <div v-html="quiz.question"></div>
+
+      <div v-for="answer in quiz.answers">
+        <span v-bind:class="[answer.value === 10 ? 'text-success' : 'text-danger', 'font-weight-bold']">{{answer.spoiler}}</span>
+        <div v-on:dblclick="checkAnswer" class="form-check-inline">
+          <input v-model="answerCode" class="form-check-input" type="radio" v-bind:value="answer.value" v-bind:id="'answer'+answer.value">
+          <label v-bind:for="'answer'+answer.value" v-html="answer.text" class="form-check-label"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-right">
+      <button v-on:click="checkAnswer" v-bind:disabled="state.checked || !answerCode" type="button" class="btn btn-secondary">Тексеру</button>
+      <button v-on:click="nextQuestion" type="button" class="btn btn-success">Келесі</button>
+    </div>
+  </div>
 </template>
 
 <script>
-  import Exam from './Exam'
 
-  const range = (raw) => {
-    let [start, end] = raw.split("-").map((e) => Number(e));
-    return Array.from({length: (end-start+1)}, (v, k) => k + start);
-  };
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
 
   export default {
-    name: "trainer",
-    components: {
-      Exam
-    },
-    props: ["quizBank"],
+    name: "exam",
+    props: ["quizBank", "examNumbers"],
     data() {
       return {
-        mode: 'exam',
-        rawNumbers: '1-25',
-        examNumbers: []
-      }
-    },
-    computed: {
-      currentQuizes() {
-        return this.quizBank.quizes.filter((quiz) => this.inputNumbers.includes(quiz.number) );
-      },
-      quizNumbers() {
-        return this.quizBank.quizes.map((quiz) => quiz.number) //.sort((a, b) => a - b);
-      },
-      inputNumbers() {
-        let regpat = /\d{1,3}-\d{1,3}|\d{1,3}/g;
-        let numbers = [];
-        let match;
-        while (match = regpat.exec(this.rawNumbers)) {
-          if (match[0].indexOf('-') === -1) {
-            numbers.push(Number(match[0]));
-          }
-          else {
-            numbers.push(...range(match[0]));
-          }
+        localExamNumbers: [...this.examNumbers],
+        quiz: {},
+        currentNumber: '',
+        answerCode: '',
+        state: {
+          checked: false
         }
-        return numbers.filter((n) => this.quizNumbers.includes(n));
-      },
-      missingQuestions() {
-        console.log(`Quiz Numbers: ${this.quizNumbers.length}`);
-        let fullNumbers = [];
-        for(let i = Math.min(...this.quizNumbers); i <= Math.max(...this.quizNumbers); i++) {
-          fullNumbers.push(i);
-        }
-        console.log(`Full Numbers: ${fullNumbers.length}`);
-        return fullNumbers.filter((n) => {
-          return this.quizNumbers.indexOf(n) === -1;
-        }).toString();
       }
     },
     watch: {
-      mode(val, oldVal) {
-        if (val === 'show')
-          this.examNumbers = [];
-        else if (val === 'exam')
-          this.examNumbers = [...this.inputNumbers];
+      examNumbers(newVal) {
+        this.localExamNumbers = [...newVal];
+        this.nextQuestion();
       }
     },
+    created() {
+      this.nextQuestion();
+    },
     methods: {
-      start() {
-        this.examNumbers = [...this.inputNumbers];
+      // todo приветствие и завершение
+      nextQuestion() {
+        if (this.localExamNumbers.length === 0){
+          return;
+        }
+        let index = Math.floor(Math.random() * this.localExamNumbers.length);
+        this.currentNumber = this.localExamNumbers[index][0];
+        let quiz = this.quizBank.quizes.filter(q => q.number === this.currentNumber)[0];
+        let answers = [];
+        quiz.answers.forEach((answer, index) => {
+          answers.push({
+            text: answer, //.slice(answer.indexOf(')')+1),
+            value: index + 10,
+            spoiler: ''
+          })
+        });
+        quiz.fakeanswers.forEach((answer, index) => {
+          answers.push({
+            text: answer, //.slice(answer.indexOf(')')+1),
+            value: index + 20,
+            spoiler: ''
+          })
+        });
+        this.answerCode = '';
+        this.state.checked = false;
+        this.quiz = {};
+        this.quiz.question = quiz.question;
+        this.quiz.answers = shuffleArray(answers);
       },
-      formatDate(microseconds) {
-        let datetime = new Date(microseconds * 1000);
-        let dd = datetime.getDate();
-        if (dd < 10) dd = '0' + dd;
-        let mm = datetime.getMonth() + 1;
-        if (mm < 10) mm = '0' + mm;
-        let yyyy = datetime.getFullYear();
-        let H = datetime.getHours();
-        let M = datetime.getMinutes();
-        if (M < 10) M = '0' + M;
-        return `${dd}-${mm}-${yyyy} ${H}:${M}`;
+      checkAnswer() {
+        if (this.state.checked) return;
+        this.state.checked = true;
+        if (this.answerCode === 10) {
+          let tempNum = this.localExamNumbers.find(x => x[0] === this.currentNumber);
+          this.localExamNumbers.splice(this.localExamNumbers.indexOf(tempNum), 1);
+        } else {
+          this.localExamNumbers.push([this.currentNumber, Math.random()]);
+        }
+        this.quiz.answers.map(answer => {
+          if (answer.value === this.answerCode)
+            answer.spoiler = 'Қате';
+          if (answer.value === 10)
+            answer.spoiler = 'Дұрыс';
+          return answer;
+        })
       }
     }
   }
 </script>
 
 <style scoped>
-
+  .list-item {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .list-enter-active, .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+  }
 </style>

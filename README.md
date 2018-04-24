@@ -1,6 +1,6 @@
 # foxtest-zero
 
-> A Vue.js project
+> Исходный код сайта burnoe.com. Сайт для подготовки к тестированию.
 
 ## Build Setup
 
