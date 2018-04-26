@@ -1,5 +1,9 @@
 <template>
   <div class="">
+    <div class="text-right text-muted">
+      <input v-model="state.showLetter" type="checkbox" id="showLetterId">
+      <label for="showLetterId">Әріптер</label>
+    </div>
     <div class="" style="overflow:hidden; white-space: nowrap;">
       Қалған сұрақтар саны: {{localExamNumbers.length}}
       <transition-group name="list" tag="p">
@@ -50,7 +54,8 @@
         currentNumber: '',
         answerCode: '',
         state: {
-          checked: false
+          checked: false,
+          showLetter: false
         }
       }
     },
@@ -74,6 +79,8 @@
         let quiz = this.quizBank.quizes.filter(q => q.number === this.currentNumber)[0];
         let answers = [];
         quiz.answers.forEach((answer, index) => {
+          if (!this.state.showLetter)
+            answer = answer.slice(answer.indexOf(')')+1);
           answers.push({
             text: answer, //.slice(answer.indexOf(')')+1),
             value: index + 10,
@@ -81,6 +88,8 @@
           })
         });
         quiz.fakeanswers.forEach((answer, index) => {
+          if (!this.state.showLetter)
+            answer = answer.slice(answer.indexOf(')')+1);
           answers.push({
             text: answer, //.slice(answer.indexOf(')')+1),
             value: index + 20,
