@@ -71,6 +71,15 @@
     components: {
       Opener
     },
+    watch: {
+      quizBank: function(newVal) {
+        if (Object.keys(newVal).length > 0) {
+          window.document.title = `${newVal.name} - тест жаттауға арналған сайт`;
+        } else {
+          window.document.title = 'Тест жаттауға арналған сайт';
+        }
+      }
+    },
     computed: {
       lastCodes: {
         get: function() {
@@ -79,7 +88,7 @@
         },
         set: function(newValue) {
           let codes = JSON.parse(localStorage.getItem('codes')) || [];
-          if (codes.includes(newValue))
+          if (codes.indexOf(newValue) !== -1)
             return;
           if (codes.length > 4) codes.shift();
           codes.push(newValue);
