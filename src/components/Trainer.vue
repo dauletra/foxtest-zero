@@ -21,7 +21,7 @@
       <div v-for="answer in quiz.answers">
         <span v-bind:class="[answer.value === 10 ? 'text-success' : 'text-danger', 'font-weight-bold']">{{answer.spoiler}}</span>
         <div v-on:dblclick="checkAnswer" class="form-check-inline">
-          <input v-model="answerCode" class="form-check-input" type="radio" v-bind:value="answer.value" v-bind:id="'answer'+answer.value">
+          <input v-model="answerCode" v-bind:disabled="state.checked" class="form-check-input" type="radio" v-bind:value="answer.value" v-bind:id="'answer'+answer.value">
           <label v-bind:for="'answer'+answer.value" v-html="answer.text" class="form-check-label"></label>
         </div>
       </div>

@@ -3,6 +3,25 @@ import Vue from 'vue'
 import App from './App.vue'
 import Hammer from 'hammerjs'
 import { isEmpty } from 'lodash'
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+
+import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
+import faBus from '@fortawesome/fontawesome-free-solid/faBus'
+import faMobileAlt from '@fortawesome/fontawesome-free-solid/faMobileAlt'
+
+import faClock from '@fortawesome/fontawesome-free-regular/faClock'
+import faThumbsUp from '@fortawesome/fontawesome-free-regular/faThumbsUp'
+
+import faVk from '@fortawesome/fontawesome-free-brands/faVk'
+import faWhatsapp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
+
+fontawesome.library.add(
+  faSpinner, faBus, faMobileAlt,
+  faClock, faThumbsUp,
+  faVk, faWhatsapp);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
 
 const gestures = ['tap', 'pan', 'pinch', 'press', 'rotate', 'swipe', 'doubletap']
 const directions = ['up', 'down', 'left', 'right', 'horizontal', 'vertical', 'all']
