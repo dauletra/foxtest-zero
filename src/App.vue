@@ -33,7 +33,7 @@
         <ul class="fa-ul">
           <li>
             <span class="fa-li"><font-awesome-icon style="color: blue" :icon="['fab', 'vk']" /></span>
-            <a href="https://vk.com/burnoetest" target="_blank">vk.com/dauletra</a>
+            <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
           </li>
         </ul>
       </div>
@@ -93,7 +93,7 @@
     <div class="">
       <div class="text-center">Бурное 2018</div>
       <div class="text-center"><a href="mailto:daulet.rakhmankul@gmail.com">daulet.rakhmankul@gmail.com</a></div>
-      <div class="text-right small">version 0.01</div>
+      <div class="text-right small">version 0.02</div>
     </div>
 
   </div>
