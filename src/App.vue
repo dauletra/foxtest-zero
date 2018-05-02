@@ -3,11 +3,10 @@
     <div class="mb-4">
       <blockquote class="blockquote text-right">
         <p class="mb-0 small"><em>Айгерімге тест жаттауға көмектесу үшін жасалған сайт ;)</em></p>
-        <!--<footer class="blockquote-footer">Сайт авторы <cite title="Daulet Ra">Даулет Ра</cite></footer>-->
       </blockquote>
     </div>
 
-    <div class="mb-4">
+    <div class="mb-4 p-1">
       <div class="h6" style="color: darkslateblue">Burnoe.com</div>
       <div>Тест сұрақтарын экзаменде отырғандай өтіп</div>
       <ul class="fa-ul">
@@ -24,29 +23,28 @@
           компьютер, планшет немесе смартфонда ашып
         </li>
         <li>
-          <span class="fa-li"><font-awesome-icon :icon="['far', 'thumbs-up']" /></span>
+          <span class="fa-li"><font-awesome-icon :icon="['far', 'lightbulb']" /></span>
           жылдам жаттап алу
         </li>
       </ul>
-      <div>
-        Администратор:
-        <ul class="fa-ul">
-          <li>
-            <span class="fa-li"><font-awesome-icon style="color: blue" :icon="['fab', 'vk']" /></span>
-            <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
-          </li>
-        </ul>
-      </div>
+      <!--<div>-->
+        <!--Администратор:-->
+        <!--<ul class="fa-ul">-->
+          <!--<li>-->
+            <!--<span class="fa-li"><font-awesome-icon style="color: blue" :icon="['fab', 'vk']" /></span>-->
+            <!--<a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
     </div>
 
-    <div class="mb-4 ">
-
+    <div class="mb-4">
       <div v-if="Object.keys(quizBank).length === 0" class="p-2 border rounded">
         <form v-on:submit.prevent>
           <div class="">
             <div class="text-muted">
-              Мысал ретінде <code v-on:click="autoComplete('istoria')">istoria</code> немесе
-              <code v-on:click="autoComplete('termo')">termo</code> деп жазып көруге болады
+              Мысал ретінде <code v-on:click="code='istoria'">istoria</code> немесе
+              <code v-on:click="code='termo'">termo</code> деп жазып көруге болады
             </div>
             <div class="input-group" style="max-width: 300px">
               <div class="input-group-prepend">
@@ -54,15 +52,29 @@
               </div>
               <input v-model.trim="code" type="text" class="form-control">
               <div class="input-group-append">
-                <button v-bind:disabled="downloading" v-on:click="download" type="submit" class="btn">Ашу</button>
+                <button v-bind:disabled="downloading" v-on:click="download" type="submit" class="btn">
+                  <font-awesome-icon v-if="downloading" icon="spinner" spin />
+                  <span v-else>Ашу</span>
+                </button>
               </div>
             </div>
             <span class="text-warning small">{{codeWarning}}</span>
             <span class="text-success small">{{codeSuccess}}</span>
             <div v-if="lastCodes.length > 0" class="">
               <span class="text-muted">Соңғы кодтар</span>
-              <ul>
-                <li v-for="code in lastCodes"><code v-on:click="autoComplete(code)">{{code}}</code></li>
+              <ul class="fa-ul">
+                <li v-for="lastCode in lastCodes">
+                  <span class="fa-li">
+                    <font-awesome-layers>
+                      <font-awesome-icon :icon="['far', 'circle']" />
+                      <font-awesome-icon icon="bold" transform="shrink-6" />
+                    </font-awesome-layers>
+                  </span>
+                  <code v-on:click="code=lastCode">{{lastCode}}</code>
+                  <a v-on:click.prevent="removeFromLastCodes(lastCode)" href="#">
+                    <font-awesome-icon icon="times" transform="shrink-6" />
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -88,12 +100,43 @@
     </div>
 
     <!-- HOW TO -->
+    <div class="mb-4 pt-5">
+      <div class="font-weight-bold" style="color: #312b4f">Тестті сайттан ашу үшін...</div>
+      <div class="d-flex justify-content-center" style="color: #312b4f">
+        <div class="">
+          <font-awesome-icon :icon="['far', 'user']" size="7x" />
+        </div>
+        <div class="mx-sm-3 mx-2">
+          <div class="mb-1">
+            <div>
+              <font-awesome-icon :icon="['far', 'file-word']" size="2x" />
+              <font-awesome-icon icon="arrow-right" size="2x" />
+            </div>
+            <span>istoria.doc</span>
+          </div>
+          <div class="ml-md-5 ml-sm-3 ml-1">
+            <div>
+              <font-awesome-icon icon="arrow-left" size="2x" />
+              <font-awesome-icon icon="key" size="2x" />
+            </div>
+            <span>istoria</span>
+          </div>
+        </div>
+        <div class="">
+          <font-awesome-icon icon="user-secret" size="7x" />
+          <div>
+            <font-awesome-icon :icon="['fab', 'vk']" style="color: #4c75a3" />
+            <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- FOOTER -->
     <div class="">
       <div class="text-center">Бурное 2018</div>
       <div class="text-center"><a href="mailto:daulet.rakhmankul@gmail.com">daulet.rakhmankul@gmail.com</a></div>
-      <div class="text-right small">version 0.02</div>
+      <div class="text-right small">version 0.03</div>
     </div>
 
   </div>
@@ -110,6 +153,7 @@
         quizBank: {},
 
         code: '',
+        lastCodes: [],
         codeWarning: '',
         codeSuccess: '',
         downloading: false,
@@ -130,40 +174,36 @@
         }
       }
     },
-    computed: {
-      lastCodes: {
-        get: function() {
-          let rawCodes = localStorage.getItem('codes');
-          return JSON.parse(rawCodes) || [];
-        },
-        set: function(newValue) {
-          let codes = JSON.parse(localStorage.getItem('codes')) || [];
-          if (codes.indexOf(newValue) !== -1)
-            return;
-          if (codes.length > 4) codes.shift();
-          codes.push(newValue);
-          localStorage.setItem('codes', JSON.stringify(codes));
-        }
-      }
+    created() {
+      let rawCodes = localStorage.getItem('codes');
+      this.lastCodes = JSON.parse(rawCodes) || [];
     },
     methods: {
-      autoComplete(code) {
-        this.code = code;
+      addToLastCodes(code) {
+        if (this.lastCodes.indexOf(code) !== -1) {
+          this.lastCodes.splice(this.lastCodes.indexOf(code), 1);
+        }
+        if (this.lastCodes.length > 4) {
+          this.lastCodes.splice(4);
+        }
+        this.lastCodes.splice(0, 0, code);
+        localStorage.setItem('codes', JSON.stringify(this.lastCodes));
+      },
+      removeFromLastCodes(code) {
+        if (this.lastCodes.indexOf(code) !== -1) {
+          this.lastCodes.splice(this.lastCodes.indexOf(code), 1)
+        }
+        localStorage.setItem('codes', JSON.stringify(this.lastCodes));
       },
       download() {
         this.code = this.code.toLowerCase();
         if (!this.code.length > 0)
           return;
-        this.lastCodes = this.code;
+        this.addToLastCodes(this.code);
         let url = `http://res.cloudinary.com/burnoe/raw/upload/tests/${this.code}.json`;
         console.log(`Generated url: ${url}`);
-        // todo adblock блокирует ссылку
         this.downloading = true;
-        axios.get(url, {
-          onDownloadProgress: event => {
-            // this.progress = event.loaded; Math.round((event.loaded*100) / event.total); // event.total == 0
-          }
-        })
+        axios.get(url)
           .then(response => {
             this.quizBank = response.data;
 
