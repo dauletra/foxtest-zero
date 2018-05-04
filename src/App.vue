@@ -11,37 +11,71 @@
       <div>Тест сұрақтарын экзаменде отырғандай өтіп</div>
       <ul class="fa-ul">
         <li>
-          <span class="fa-li"><font-awesome-icon :icon="['far', 'clock']" /></span>
+          <span class="fa-li"><font-awesome-icon :icon="['far', 'clock']" style="color: #0ece38" /></span>
           кез келген уақытта
         </li>
         <li>
-          <span class="fa-li"><font-awesome-icon icon="bus" /></span>
+          <span class="fa-li"><font-awesome-icon icon="bus" style="color: #3da1df" /></span>
           кез келген жерде
         </li>
         <li>
-          <span class="fa-li"><font-awesome-icon icon="mobile-alt" /></span>
+          <span class="fa-li"><font-awesome-icon icon="mobile-alt" style="color: darkolivegreen" /></span>
           компьютер, планшет немесе смартфонда ашып
         </li>
         <li>
-          <span class="fa-li"><font-awesome-icon :icon="['far', 'lightbulb']" /></span>
+          <span class="fa-li"><font-awesome-icon :icon="['far', 'lightbulb']" style="color: yellow" /></span>
           жылдам жаттап алу
         </li>
       </ul>
-      <!--<div>-->
-        <!--Администратор:-->
-        <!--<ul class="fa-ul">-->
-          <!--<li>-->
-            <!--<span class="fa-li"><font-awesome-icon style="color: blue" :icon="['fab', 'vk']" /></span>-->
-            <!--<a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</div>-->
+      <div>
+        Администратор:
+        <ul class="fa-ul">
+          <li>
+            <span class="fa-li"><font-awesome-icon style="color: #4c75a3" :icon="['fab', 'vk']" /></span>
+            <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <div v-if="Object.keys(quizBank).length === 0" class="p-2 border rounded">
+    <div id="top" class="mb-4">
+      <!-- TEST CODE -->
+      <div v-if="Object.keys(quizBank).length === 0" class="">
+        <!--
+        <div class="mb-4">
+          <div class="d-flex justify-content-center" style="color: #312b4f">
+            <div class="">
+              <font-awesome-icon icon="user" size="7x" />
+              <div class="text-center">Студент</div>
+            </div>
+            <div class="mx-sm-3 mx-2">
+              <div class="mb-1">
+                <div>
+                  <font-awesome-icon :icon="['far', 'file-word']" size="2x" style="color: #2b579a" />
+                  <font-awesome-icon icon="arrow-right" size="2x" />
+                </div>
+                <span>istoria.doc</span>
+              </div>
+              <div class="ml-md-5 ml-sm-3 ml-1">
+                <div>
+                  <font-awesome-icon icon="arrow-left" size="2x" />
+                  <font-awesome-icon icon="key" size="2x" />
+                </div>
+                <span>istoria</span>
+              </div>
+            </div>
+            <div class="">
+              <font-awesome-icon :icon="['far', 'user']" size="7x" />
+              <div>
+                <font-awesome-icon :icon="['fab', 'vk']" style="color: #4c75a3" />
+                <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
         <form v-on:submit.prevent>
-          <div class="">
+          <div class="p-1 p-sm-0">
             <div class="text-muted">
               Мысал ретінде <code v-on:click="code='istoria'">istoria</code> немесе
               <code v-on:click="code='termo'">termo</code> деп жазып көруге болады
@@ -81,7 +115,7 @@
 
           <div class="hr-sect">Тек админ үшін</div>
 
-          <div class="">
+          <div class="p-1 p-sm-0">
             <div class="">
               <input v-on:change="onChangeHandler" type="file" class="form-control-file from-control" id="file">
             </div>
@@ -91,7 +125,8 @@
         </form>
       </div>
 
-      <div v-else class="border rounded">
+      <!-- TEST OPENER -->
+      <div v-else class="">
         <div class="text-right">
           <button v-on:click="quizBank = {}" class="btn btn-link">жабу</button>
         </div>
@@ -99,44 +134,15 @@
       </div>
     </div>
 
-    <!-- HOW TO -->
-    <div class="mb-4 pt-5">
-      <div class="font-weight-bold" style="color: #312b4f">Тестті сайттан ашу үшін...</div>
-      <div class="d-flex justify-content-center" style="color: #312b4f">
-        <div class="">
-          <font-awesome-icon :icon="['far', 'user']" size="7x" />
-        </div>
-        <div class="mx-sm-3 mx-2">
-          <div class="mb-1">
-            <div>
-              <font-awesome-icon :icon="['far', 'file-word']" size="2x" />
-              <font-awesome-icon icon="arrow-right" size="2x" />
-            </div>
-            <span>istoria.doc</span>
-          </div>
-          <div class="ml-md-5 ml-sm-3 ml-1">
-            <div>
-              <font-awesome-icon icon="arrow-left" size="2x" />
-              <font-awesome-icon icon="key" size="2x" />
-            </div>
-            <span>istoria</span>
-          </div>
-        </div>
-        <div class="">
-          <font-awesome-icon icon="user-secret" size="7x" />
-          <div>
-            <font-awesome-icon :icon="['fab', 'vk']" style="color: #4c75a3" />
-            <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <back-to-top>
+      <font-awesome-icon icon="chevron-up" size="3x" />
+    </back-to-top>
 
     <!-- FOOTER -->
     <div class="">
       <div class="text-center">Бурное 2018</div>
       <div class="text-center"><a href="mailto:daulet.rakhmankul@gmail.com">daulet.rakhmankul@gmail.com</a></div>
-      <div class="text-right small">version 0.03</div>
+      <div class="text-right small">version 0.04</div>
     </div>
 
   </div>

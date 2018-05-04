@@ -5,6 +5,7 @@ import Hammer from 'hammerjs'
 import { isEmpty } from 'lodash'
 import fontawesome from '@fortawesome/fontawesome'
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
+import BackToTop from 'vue-backtotop'
 
 import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
 import faBus from '@fortawesome/fontawesome-free-solid/faBus'
@@ -16,6 +17,9 @@ import faUserSecret from '@fortawesome/fontawesome-free-solid/faUserSecret'
 import faListUl from '@fortawesome/fontawesome-free-solid/faListUl'
 import faBold from '@fortawesome/fontawesome-free-solid/faBold'
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
+import faUserBlack from '@fortawesome/fontawesome-free-solid/faUser'
+import faAngleDoubleLeft from '@fortawesome/fontawesome-free-solid/faAngleDoubleLeft'
+import faChevronUp from '@fortawesome/fontawesome-free-solid/faChevronUp'
 
 import faClock from '@fortawesome/fontawesome-free-regular/faClock'
 import faThumbsUp from '@fortawesome/fontawesome-free-regular/faThumbsUp'
@@ -23,13 +27,16 @@ import faUser from '@fortawesome/fontawesome-free-regular/faUser'
 import faFileWord from '@fortawesome/fontawesome-free-regular/faFileWord'
 import faLightbulb from '@fortawesome/fontawesome-free-regular/faLightbulb'
 import faCircle from '@fortawesome/fontawesome-free-regular/faCircle'
+import faHandPeace from '@fortawesome/fontawesome-free-regular/faHandPeace'
+import faHandPointUp from '@fortawesome/fontawesome-free-regular/faHandPointUp'
 
 import faVk from '@fortawesome/fontawesome-free-brands/faVk'
 import faWhatsapp from '@fortawesome/fontawesome-free-brands/faWhatsapp'
 
 fontawesome.library.add(
-  faSpinner, faBus, faMobileAlt, faArrowRight, faArrowLeft, faKey, faUserSecret, faListUl, faBold, faTimes,
-  faClock, faThumbsUp, faUser, faFileWord, faLightbulb, faCircle,
+  faSpinner, faBus, faMobileAlt, faArrowRight, faArrowLeft, faKey, faUserSecret, faListUl, faBold, faTimes, faUserBlack,
+  faAngleDoubleLeft, faChevronUp,
+  faClock, faThumbsUp, faUser, faFileWord, faLightbulb, faCircle, faHandPeace, faHandPointUp,
   faVk, faWhatsapp);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('font-awesome-layers', FontAwesomeLayers);
@@ -166,6 +173,7 @@ const VueHammer = {
 }
 
 Vue.use(VueHammer);
+Vue.use(BackToTop);
 
 import 'bootstrap/dist/css/bootstrap.css'
 

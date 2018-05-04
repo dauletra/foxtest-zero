@@ -41,14 +41,6 @@
             <span class="small text-muted">{{this.inputNumbers}}</span>
           </div>
         </div>
-        <div v-if="mode==='exam'" class="text-muted">
-          <h6>Ереже</h6>
-          <ul>
-            <li>Сұраққа қате жауап берілсе, сол сұрақ қайталанып келеді</li>
-            <li>Жауаптың үстінен екі рет басу жауапты тексереді</li>
-            <li>Сенсорлы экранды солға қарай жылжыту келесі сұраққа ауыстырады</li>
-          </ul>
-        </div>
         <div class="form-group text-center">
           <button v-if="mode==='exam'" v-on:click="setExamNumbers" type="submit" class="btn ">Бастау</button>
         </div>
@@ -57,6 +49,20 @@
       <div class="p-sm-2">
         <div v-if="mode==='exam'">
           <div class="hr-sect">Тест</div>
+          <ul class="fa-ul">
+            <li>
+              <span class="fa-li">
+                <font-awesome-icon :icon="['far', 'hand-peace']" />
+              </span>
+              Екі рет жауаптың үстінен басу жауапты тексереді
+            </li>
+            <li>
+              <span class="fa-li">
+                <font-awesome-icon :icon="['far', 'hand-point-up']" />
+              </span>
+              Сенсорлы экранды солға қарай жылжыту келесі сұраққа ауыстырады
+            </li>
+          </ul>
           <Trainer v-if="examNumbers.length > 0" v-bind:quizBank="quizBank" v-bind:examNumbers="examNumbers" />
         </div>
 

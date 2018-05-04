@@ -28,7 +28,9 @@
     </div>
 
     <div class="text-right">
-      <button v-on:click="checkAnswer" v-bind:disabled="state.checked || !answerCode" type="button" class="btn btn-secondary">Тексеру</button>
+      <button v-on:click="checkAnswer" v-bind:disabled="state.checked || !answerCode" type="button" class="btn btn-secondary">
+        Тексеру
+      </button>
       <button v-on:click="nextQuestion" type="button" class="btn btn-success">Келесі</button>
     </div>
   </div>
@@ -69,7 +71,6 @@
       this.nextQuestion();
     },
     methods: {
-      // todo приветствие и завершение
       nextQuestion() {
         if (this.localExamNumbers.length === 0){
           return;
