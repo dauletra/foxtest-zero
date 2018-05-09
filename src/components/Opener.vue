@@ -18,7 +18,10 @@
           <td>{{formatDate(quizBank.created_time)}}</td>
         </tr>
       </table>
-
+      <div v-if="quizBank.warning" class="alert alert-danger">
+        Ескерту:
+        {{quizBank.warning}}
+      </div>
       <div class="hr-sect">Операциялар</div>
 
       <form v-on:submit.prevent class="m-1">
