@@ -7,77 +7,23 @@
     </div>
 
     <div class="mb-4 p-1">
-      <div class="h6" style="color: darkslateblue">Burnoe.com</div>
-      <div>Тест сұрақтарын экзаменде отырғандай өтіп</div>
+      <div class="h6" style="color: darkslateblue">test.burnoe.com</div>
+      <div>Ттестке дайындалуға арналған сайт</div>
       <ul class="fa-ul">
         <li>
-          <span class="fa-li"><font-awesome-icon :icon="['far', 'clock']" style="color: #0ece38" /></span>
-          кез келген уақытта
-        </li>
-        <li>
-          <span class="fa-li"><font-awesome-icon icon="bus" style="color: #3da1df" /></span>
-          кез келген жерде
-        </li>
-        <li>
           <span class="fa-li"><font-awesome-icon icon="mobile-alt" style="color: darkolivegreen" /></span>
-          компьютер, планшет немесе смартфонда ашып
-        </li>
-        <li>
-          <span class="fa-li"><font-awesome-icon :icon="['far', 'lightbulb']" style="color: yellow" /></span>
-          жылдам жаттап алу
+          компьютермен де, смартфонмен де ашып жаттауға болады
         </li>
       </ul>
-      <div>
-        Администратор:
-        <ul class="fa-ul">
-          <li>
-            <span class="fa-li"><font-awesome-icon style="color: #4c75a3" :icon="['fab', 'vk']" /></span>
-            <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
-          </li>
-        </ul>
-      </div>
     </div>
 
     <div id="top" class="mb-4">
       <!-- TEST CODE -->
       <div v-if="Object.keys(quizBank).length === 0" class="">
-        <!--
-        <div class="mb-4">
-          <div class="d-flex justify-content-center" style="color: #312b4f">
-            <div class="">
-              <font-awesome-icon icon="user" size="7x" />
-              <div class="text-center">Студент</div>
-            </div>
-            <div class="mx-sm-3 mx-2">
-              <div class="mb-1">
-                <div>
-                  <font-awesome-icon :icon="['far', 'file-word']" size="2x" style="color: #2b579a" />
-                  <font-awesome-icon icon="arrow-right" size="2x" />
-                </div>
-                <span>istoria.doc</span>
-              </div>
-              <div class="ml-md-5 ml-sm-3 ml-1">
-                <div>
-                  <font-awesome-icon icon="arrow-left" size="2x" />
-                  <font-awesome-icon icon="key" size="2x" />
-                </div>
-                <span>istoria</span>
-              </div>
-            </div>
-            <div class="">
-              <font-awesome-icon :icon="['far', 'user']" size="7x" />
-              <div>
-                <font-awesome-icon :icon="['fab', 'vk']" style="color: #4c75a3" />
-                <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
         <form v-on:submit.prevent>
           <div class="p-1 p-sm-0">
             <div class="text-muted">
-              Мысал ретінде <code v-on:click="code='istoria'">istoria</code> немесе
+              Мысал ретінде
               <code v-on:click="code='termo'">termo</code> деп жазып көруге болады
             </div>
             <div class="input-group" style="max-width: 300px">
@@ -140,7 +86,11 @@
 
     <!-- FOOTER -->
     <div class="">
-      <div class="text-center">Бурное 2018</div>
+      <div class="text-center">Бурное 2019</div>
+      <div class="text-center">
+        <font-awesome-icon style="color: #4c75a3" :icon="['fab', 'vk']" />
+        <a href="https://vk.com/dauletra" target="_blank">vk.com/dauletra</a>
+      </div>
       <div class="text-center"><a href="mailto:daulet.rakhmankul@gmail.com">daulet.rakhmankul@gmail.com</a></div>
       <div class="text-right small">version 0.04</div>
     </div>
