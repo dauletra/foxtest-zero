@@ -8,7 +8,7 @@
 
     <div class="mb-4 p-1">
       <div class="h6" style="color: darkslateblue">test.burnoe.com</div>
-      <div>Ттестке дайындалуға арналған сайт</div>
+      <div>Тестке дайындалуға арналған сайт</div>
       <ul class="fa-ul">
         <li>
           <span class="fa-li"><font-awesome-icon icon="mobile-alt" style="color: darkolivegreen" /></span>
